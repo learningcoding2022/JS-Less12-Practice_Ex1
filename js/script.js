@@ -1,9 +1,13 @@
 //Description: In this exercise, you'll fetch random profile data from the Random User Generator API. You'll parse the data to a JSON file and then create an array with the daya. Finally, you'll create a function expression to populate data on the page, including the country, name, and profile image
 
+//create a variable called selectUserNumber to capture the select element
+//need # since it is an id name
+const selectUserNumber = document.querySelector("#users")
+
 const randomFolks = document.querySelector(".random-peeps");
 
-const getData = async function () {
-    const usersRequest = await fetch("https://randomuser.me/api?results=5");
+const getData = async function (numUsers) {
+    const usersRequest = await fetch(`https://randomuser.me/api?results=${numUsers}`);
     //declare a variable called data to parse the data captured in the usersRequest variable using .json()
     const data = await usersRequest.json();
     
@@ -13,7 +17,7 @@ const getData = async function () {
     //nothing showed up in the console
 };
 
-getData();
+getData(1);
 
 const displayUsers = function (userResults) {
     randomFolks.innerHTML = "";
@@ -33,3 +37,19 @@ const displayUsers = function (userResults) {
         randomFolks.append(userDiv);
     }
 };
+
+//practice exercise 2: programming a drop-down list to change the number of profiles displayed
+
+//removed the class of "hide" from the html
+
+//add a change event listener for selectUserNumber
+
+selectUserNumber.addEventListener('change', function (e) {
+    //create variable called numUsers that will capture the selected value
+    const numUsers = e.target.value;
+    //console.log(numUsers);
+    getData(numUsers);
+})
+
+
+
